@@ -13,13 +13,13 @@ import (
 	"github.com/pavelanni/mcp-server-minio-go/fsutils"
 )
 
-type DownloadFileArgs struct {
+type DownloadObjectArgs struct {
 	BucketName string
 	ObjectName string
 	FilePath   string
 }
 
-func DownloadFileHandler(ctx context.Context, args DownloadFileArgs) (*mcp.ToolResponse, error) {
+func DownloadObjectHandler(ctx context.Context, args DownloadObjectArgs) (*mcp.ToolResponse, error) {
 	client, err := NewMinioClient()
 	if err != nil {
 		log.Printf("Failed to create MinIO client: %v", err)
@@ -57,5 +57,5 @@ func DownloadFileHandler(ctx context.Context, args DownloadFileArgs) (*mcp.ToolR
 		return nil, fmt.Errorf("failed to copy object to file: %v", err)
 	}
 
-	return mcp.NewToolResponse(mcp.NewTextContent(fmt.Sprintf("File '%s' downloaded successfully from bucket '%s'", args.ObjectName, args.BucketName))), nil
+	return mcp.NewToolResponse(mcp.NewTextContent(fmt.Sprintf("Object '%s' downloaded successfully from bucket '%s' and saved to '%s'", args.ObjectName, args.BucketName, args.FilePath))), nil
 }

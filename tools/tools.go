@@ -28,14 +28,14 @@ var MinIOTools = []MinIOTool{
 		Handler:     ListBucketContentsHandler,
 	},
 	{
-		Name:        "upload-file",
-		Description: "Upload a file to a bucket",
-		Handler:     UploadFileHandler,
+		Name:        "upload-object",
+		Description: "Upload an object to a bucket",
+		Handler:     UploadObjectHandler,
 	},
 	{
-		Name:        "download-file",
-		Description: "Download a file from a bucket",
-		Handler:     DownloadFileHandler,
+		Name:        "download-object",
+		Description: "Download an object from a bucket",
+		Handler:     DownloadObjectHandler,
 	},
 	{
 		Name:        "delete-object",

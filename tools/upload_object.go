@@ -9,13 +9,13 @@ import (
 	"github.com/minio/minio-go/v7"
 )
 
-type UploadFileArgs struct {
+type UploadObjectArgs struct {
 	BucketName string
 	FilePath   string
 	ObjectName string
 }
 
-func UploadFileHandler(ctx context.Context, args UploadFileArgs) (*mcp.ToolResponse, error) {
+func UploadObjectHandler(ctx context.Context, args UploadObjectArgs) (*mcp.ToolResponse, error) {
 	client, err := NewMinioClient()
 	if err != nil {
 		return nil, fmt.Errorf("failed to create MinIO client: %v", err)
@@ -37,5 +37,5 @@ func UploadFileHandler(ctx context.Context, args UploadFileArgs) (*mcp.ToolRespo
 		return nil, fmt.Errorf("failed to upload file: %v", err)
 	}
 
-	return mcp.NewToolResponse(mcp.NewTextContent(fmt.Sprintf("File '%s' uploaded successfully to bucket '%s'", args.ObjectName, args.BucketName))), nil
+	return mcp.NewToolResponse(mcp.NewTextContent(fmt.Sprintf("File '%s' uploaded successfully to bucket '%s' as object '%s'", args.FilePath, args.BucketName, args.ObjectName))), nil
 }
