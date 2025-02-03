@@ -12,7 +12,7 @@ Also, it provides the admin level functions such as getting information about th
 
 ## Installation
 
-Download the executable for your OS and CPU architecture from the Releases page and install it in your local directory that is included in yout `PATH`.
+Download the executable for your OS and CPU architecture from the [Releases page](https://github.com/pavelanni/mcp-server-minio-go/releases) and install it in your local directory that is included in your `PATH`.
 The most common location is `$HOME/.local/bin/` both on macOS and Linux.
 
 ## Configuration
@@ -44,7 +44,7 @@ The most common location is `$HOME/.local/bin/` both on macOS and Linux.
      "mcpServers": {
        . . . .
        "minio": {
-         "command": "/PATH/TO/YOUR/mcp-server-minio-go",
+         "command": "mcp-server-minio-go",
          "args": [
            "--allowed-directories",
            "~/Desktop",

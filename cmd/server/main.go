@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os"
 
 	mcp "github.com/metoro-io/mcp-golang"
 	"github.com/metoro-io/mcp-golang/transport/stdio"
@@ -16,17 +15,14 @@ func main() {
 	pflag.StringSliceVar(&allowedDirs, "allowed-directories", []string{}, "List of allowed directories for MinIO operations")
 	pflag.Parse()
 
+	done := make(chan struct{})
+
 	server := mcp.NewServer(stdio.NewStdioServerTransport(),
 		mcp.WithName("minio-mcp-server"),
 		mcp.WithVersion("1.0.0"))
 
 	if server == nil {
 		log.Fatalf("Server is nil")
-	}
-
-	// Print server environment
-	for _, env := range os.Environ() {
-		log.Println(env)
 	}
 
 	// Make allowed directories available to tools
@@ -43,7 +39,6 @@ func main() {
 	if err := server.Serve(); err != nil {
 		log.Fatalf("Server error: %v", err)
 	}
-	// Keep the server running
-	select {}
 
+	<-done
 }
