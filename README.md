@@ -101,7 +101,7 @@ The most common location is `$HOME/.local/bin/` both on macOS and Linux.
      "mcpServers": {
        . . . .
        "minio": {
-         "command": "mcp-server-minio-go",
+         "command": "/PATH/TO/YOUR/mcp-server-minio-go",
          "args": [
            "--allowed-directories",
            "~/Desktop",
@@ -117,6 +117,46 @@ The most common location is `$HOME/.local/bin/` both on macOS and Linux.
      }
    }
    ```
+
+   By default, the server starts in read-only mode. That means you can list the buckets, list contents of each bucket, get the objects tags, etc.
+
+   If you want to allow the server write operations, add the flag `--allow-write` to the `"args"` section of the configuration JSON file.
+   That will give you rights to upload files to buckets.
+
+   If you want to allow the server to delete objects and buckets, add the flag `--allow-delete` to the config file.
+
+   To get the admin information about the cluster (number of nodes and drives, health status) add the flag `--allow-admin`.
+
+   This is how the configuration file might look like with all flags enabled.
+
+   ```json
+   {
+    . . . .
+     "mcpServers": {
+       . . . .
+       "minio": {
+         "command": "/PATH/TO/YOUR/mcp-server-minio-go",
+         "args": [
+          "--allow-write",
+          "--allow-delete",
+          "--allow-admin",
+           "--allowed-directories",
+           "~/Desktop",
+           "~/Documents"
+         ],
+         "env": {
+           "MINIO_ENDPOINT": "play.min.io",
+           "MINIO_ACCESS_KEY": "REPLACE_WITH_ACCESS_KEY",
+           "MINIO_SECRET_KEY": "REPLACE_WITH_SECRET_KEY",
+           "MINIO_USE_SSL": "true"
+         }
+       }
+     }
+   }
+   ```
+
+   Be careful with these flags! Don't enable them unless you know what you're doing.
+   The best practice would be to add them only when you need them. After you performed the operation you needed them for, such as uploading a file, remove them from the configuration and restart the client.
 
 ## Usage
 
