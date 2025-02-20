@@ -180,7 +180,7 @@ This is how your Claude Desktop configuration file should look like in this case
         "MINIO_SECRET_KEY=REPLACE_WITH_SECRET_KEY",
         "-e",
         "MINIO_USE_SSL=true",
-        "localhost/mcp-server-minio-go:v0.1",
+        "docker.io/pavelanni/mcp-server-aistor-go:latest",
         "--allowed-directories",
         "/Downloads"
       ]
