@@ -74,89 +74,118 @@ The most common location is `$HOME/.local/bin/` both on macOS and Linux.
 
 ## Configuration
 
-### Claude Desktop setup
+### Claude Desktop setup for native run
 
-1. Add the following lines to your Claude Desktop configuration file.
-   Config file location: on MacOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`,
-   on Windows: `%APPDATA%/Claude/claude_desktop_config.json`
+Add the following lines to your Claude Desktop configuration file.
+Config file location: on MacOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`,
+on Windows: `%APPDATA%/Claude/claude_desktop_config.json`
 
-   The easiest way to find the config file is the following:
+The easiest way to find the config file is the following:
 
-   - In the main Claude Desktop menu (at the top of the screen on macOS and at the top of the window on Windows) click **Settings...**
-   - In the next window, click **Developer** (you may have to enable it if it's not enabled yet)
-   - In the next window, click **Edit Config**
-   - On macOS, it opens a Finder window pointing to the `claude_desktop_config.json` file in the config location. On Windows it opens an Explorer window
-   - Double-click that file, and it will be opened in your default text editor
-   - Edit and save it
-   - Exit Claude Desktop and start it again.
+- In the main Claude Desktop menu (at the top of the screen on macOS and at the top of the window on Windows) click **Settings...**
+- In the next window, click **Developer** (you may have to enable it if it's not enabled yet)
+- In the next window, click **Edit Config**
+- On macOS, it opens a Finder window pointing to the `claude_desktop_config.json` file in the config location. On Windows it opens an Explorer window
+- Double-click that file, and it will be opened in your default text editor
+- Edit and save it
+- Exit Claude Desktop and start it again.
 
-   Replace the path to the executable (`/PATH/TO/YOUR/mcp-server-minio-go`) with the actual location of the MCP server executable.
+Replace the path to the executable (`/PATH/TO/YOUR/mcp-server-minio-go`) with the actual location of the MCP server executable.
 
-   Replace the access key and secret key with the actual values.
-   If you are going to use `play.min.io` you can get these values by running `mc alias list`.
+Replace the access key and secret key with the actual values.
+If you are going to use `play.min.io` you can get these values by running `mc alias list`.
 
-   ```json
-   {
+```json
+{
+ . . . .
+  "mcpServers": {
     . . . .
-     "mcpServers": {
-       . . . .
-       "minio": {
-         "command": "/PATH/TO/YOUR/mcp-server-minio-go",
-         "args": [
-           "--allowed-directories",
-           "~/Desktop",
-           "~/Documents"
-         ],
-         "env": {
-           "MINIO_ENDPOINT": "play.min.io",
-           "MINIO_ACCESS_KEY": "REPLACE_WITH_ACCESS_KEY",
-           "MINIO_SECRET_KEY": "REPLACE_WITH_SECRET_KEY",
-           "MINIO_USE_SSL": "true"
-         }
-       }
-     }
-   }
-   ```
+    "aistor": {
+      "command": "/PATH/TO/YOUR/mcp-server-minio-go",
+      "args": [
+        "--allowed-directories",
+        "~/Desktop",
+        "~/Documents"
+      ],
+      "env": {
+        "MINIO_ENDPOINT": "play.min.io",
+        "MINIO_ACCESS_KEY": "REPLACE_WITH_ACCESS_KEY",
+        "MINIO_SECRET_KEY": "REPLACE_WITH_SECRET_KEY",
+        "MINIO_USE_SSL": "true"
+      }
+    }
+  }
+}
+```
 
-   By default, the server starts in read-only mode. That means you can list the buckets, list contents of each bucket, get the objects tags, etc.
+By default, the server starts in read-only mode. That means you can list the buckets, list contents of each bucket, get the objects tags, etc.
 
-   If you want to allow the server write operations, add the flag `--allow-write` to the `"args"` section of the configuration JSON file.
-   That will give you rights to upload files to buckets.
+If you want to allow the server write operations, add the flag `--allow-write` to the `"args"` section of the configuration JSON file.
+That will give you rights to upload files to buckets.
 
-   If you want to allow the server to delete objects and buckets, add the flag `--allow-delete` to the config file.
+If you want to allow the server to delete objects and buckets, add the flag `--allow-delete` to the config file.
 
-   To get the admin information about the cluster (number of nodes and drives, health status) add the flag `--allow-admin`.
+To get the admin information about the cluster (number of nodes and drives, health status) add the flag `--allow-admin`.
 
-   This is how the configuration file might look like with all flags enabled.
+This is how the configuration file might look like with all flags enabled.
 
-   ```json
-   {
+```json
+{
+ . . . .
+  "mcpServers": {
     . . . .
-     "mcpServers": {
-       . . . .
-       "minio": {
-         "command": "/PATH/TO/YOUR/mcp-server-minio-go",
-         "args": [
-          "--allow-write",
-          "--allow-delete",
-          "--allow-admin",
-           "--allowed-directories",
-           "~/Desktop",
-           "~/Documents"
-         ],
-         "env": {
-           "MINIO_ENDPOINT": "play.min.io",
-           "MINIO_ACCESS_KEY": "REPLACE_WITH_ACCESS_KEY",
-           "MINIO_SECRET_KEY": "REPLACE_WITH_SECRET_KEY",
-           "MINIO_USE_SSL": "true"
-         }
-       }
-     }
-   }
-   ```
+    "aistor": {
+      "command": "/PATH/TO/YOUR/mcp-server-minio-go",
+      "args": [
+       "--allow-write",
+       "--allow-delete",
+       "--allow-admin",
+        "--allowed-directories",
+        "~/Desktop",
+        "~/Documents"
+      ],
+      "env": {
+        "MINIO_ENDPOINT": "play.min.io",
+        "MINIO_ACCESS_KEY": "REPLACE_WITH_ACCESS_KEY",
+        "MINIO_SECRET_KEY": "REPLACE_WITH_SECRET_KEY",
+        "MINIO_USE_SSL": "true"
+      }
+    }
+  }
+}
+```
 
-   Be careful with these flags! Don't enable them unless you know what you're doing.
-   The best practice would be to add them only when you need them. After you performed the operation you needed them for, such as uploading a file, remove them from the configuration and restart the client.
+Be careful with these flags! Don't enable them unless you know what you're doing.
+The best practice would be to add them only when you need them. After you performed the operation you needed them for, such as uploading a file, remove them from the configuration and restart the client.
+
+### Claude Desktop for container run
+
+It is also possible to use this MCP server as a container, without installing the binary to your computer.
+This is how your Claude Desktop configuration file should look like in this case:
+
+```json
+    "aistor": {
+      "command": "podman",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-v",
+        "/Users/YOUR_USERNAME/Downloads:/Downloads",
+        "-e",
+        "MINIO_ENDPOINT=play.min.io",
+        "-e",
+        "MINIO_ACCESS_KEY=REPLACE_WITH_ACCESS_KEY",
+        "-e",
+        "MINIO_SECRET_KEY=REPLACE_WITH_SECRET_KEY",
+        "-e",
+        "MINIO_USE_SSL=true",
+        "localhost/mcp-server-minio-go:v0.1",
+        "--allowed-directories",
+        "/Downloads"
+      ]
+    }
+```
 
 ## Usage
 
