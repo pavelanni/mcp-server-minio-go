@@ -18,8 +18,8 @@ var ReadOnlyTools = []MinIOTool{
 		Handler:     ListBucketContentsHandler,
 	},
 	{
-		Name:        "prompt-object",
-		Description: "Prompt an object",
+		Name:        "ask-object",
+		Description: "Ask a question about an object using the prompt function",
 		Handler:     PromptObjectHandler,
 	},
 	{
@@ -41,6 +41,16 @@ var ReadOnlyTools = []MinIOTool{
 		Name:        "get-object-metadata",
 		Description: "Get the metadata of an object",
 		Handler:     GetObjectMetadataHandler,
+	},
+	{
+		Name:        "list-local-files",
+		Description: "List the files in a local directory",
+		Handler:     ListLocalFilesHandler,
+	},
+	{
+		Name:        "list-allowed-directories",
+		Description: "List the allowed directories",
+		Handler:     ListAllowedDirectoriesHandler,
 	},
 }
 

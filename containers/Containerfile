@@ -1,0 +1,16 @@
+FROM alpine:latest
+
+# Add any dependencies your MCP server needs
+RUN apk add --no-cache ca-certificates
+
+# Copy the MCP binary
+COPY dist/mcp-server-minio-go_linux_arm64_v8.0/mcp-server-minio-go /usr/local/bin/
+RUN chmod +x /usr/local/bin/mcp-server-minio-go
+
+# Create a non-root user for security
+RUN adduser -D mcp
+USER mcp
+
+# Use ENTRYPOINT with CMD for better handling of arguments
+ENTRYPOINT ["/usr/local/bin/mcp-server-minio-go"]
+CMD []

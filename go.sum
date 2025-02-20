@@ -68,8 +68,6 @@ github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWE
 github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
 github.com/matttproud/golang_protobuf_extensions v1.0.4 h1:mmDVorXM7PCGKw94cs5zkfA9PSy5pEvNWRP0ET0TIVo=
 github.com/matttproud/golang_protobuf_extensions v1.0.4/go.mod h1:BSXmuO+STAnVfrANrmjBb36TMTDstsz7MSK+HVaYKv4=
-github.com/metoro-io/mcp-golang v0.8.0 h1:DkigHa3w7WwMFomcEz5wiMDX94DsvVm/3mCV3d1obnc=
-github.com/metoro-io/mcp-golang v0.8.0/go.mod h1:ifLP9ZzKpN1UqFWNTpAHOqSvNkMK6b7d1FSZ5Lu0lN0=
 github.com/minio/madmin-go/v3 v3.0.90 h1:Lz6a6eT1h5QT54fkbsEJ0xcWuvBjE1IaNgxfkxe6Qxs=
 github.com/minio/madmin-go/v3 v3.0.90/go.mod h1:pMLdj9OtN0CANNs5tdm6opvOlDFfj0WhbztboZAjRWE=
 github.com/minio/md5-simd v1.1.2 h1:Gdi1DZK69+ZVMoNHRXJyNcxrMA4dSxoYHZSQbirFg34=
